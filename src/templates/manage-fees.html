@@ -1,0 +1,52 @@
+<div ng-controller="ManageFeesCtrl">
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Admission Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Class Number</th>
+                <th>Aadhaar Number</th>
+                <th>Total Fees Pending</th>
+            </tr>
+            <tr>
+                <td>{{student._id}}</td>
+                <td>{{student.firstName}}</td>
+                <td>{{student.lastName}}</td>
+                <td>{{student.classNumber}}</td>
+                <td>{{student.aadhaarNumber}}</td>
+                <td>{{student.totalFeesPending}}</td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>Fees</th>
+                    <th>Deposit</th>
+                </tr>
+                <tr ng-repeat="feeInfo in student.feesArray">
+                    <td>{{feeInfo.month}}</td>
+                    <td>{{feeInfo.year}}</td>
+                    <td><input type="number" ng-model="feeInfo.feesThisMonth" /></td>
+                    <td><input type="number" ng-model="feeInfo.deposit" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary" ng-click="update()">Update</button>
+            <button class="btn btn-primary" ng-click="backToManageStudent()">Back To Manage Student</button>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+</div>

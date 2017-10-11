@@ -1,0 +1,62 @@
+[
+  {
+    "rollNumber": "101",
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "dob": "23-JUN-1980",
+    "classNumber": "3"
+  },
+  {
+    "rollNumber": "101",
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "dob": "23-JUN-1980",
+    "classNumber": "3"
+  },
+  {
+    "rollNumber": "101",
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "dob": "23-JUN-1980",
+    "classNumber": "3"
+  },
+  {
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "company": "Enormo",
+    "employed": true
+  },
+  {
+    "rollNumber": "101",
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "dob": "23-JUN-1980",
+    "classNumber": "3"
+  },
+  {
+    "firstName": "Nancy",
+    "lastName": "Waters",
+    "company": "Fuelton",
+    "employed": false
+  },
+  {
+    "rollNumber": "101",
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "dob": "23-JUN-1980",
+    "classNumber": "3"
+  },
+  {
+    "firstName": "Lorraine",
+    "lastName": "Wise",
+    "company": "Comveyer",
+    "employed": false
+  },
+  {
+    "rollNumber": "101",
+    "firstName": "Cox",
+    "lastName": "Carney",
+    "dob": "23-JUN-1980",
+    "classNumber": "3"
+  }
+]

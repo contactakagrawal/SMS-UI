@@ -1,0 +1,41 @@
+<div class="row" ng-controller="StatsController">
+    <div class="col-md-12">
+        <table class=" table table-bordered table-striped">
+            <tr>
+                <td>
+                    Total Number Of Students
+                </td>
+                <td>
+                    {{stats.count}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total Fees Expected
+                </td>
+                <td>
+                    {{stats.totalFeesExpected}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total Fees Collected
+                </td>
+                <td>
+                    {{stats.totalFeesExpected - stats.totalFeesPending}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total Fees Pending
+                </td>
+                <td>
+                    {{stats.totalFeesPending}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <canvas id="pie" class="chart chart-pie"
+            chart-data="data" chart-labels="labels" chart-options="options">
+    </canvas>
+</div>

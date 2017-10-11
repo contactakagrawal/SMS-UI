@@ -1,0 +1,176 @@
+<div class="row" ng-controller="UpdateStudentCtrl">
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="rollNumber">Admission Number</label>
+                    <input type="text" ng-disabled="true" class="form-control" id="rollNumber" ng-model="student._id" placeholder="Enter Admission Number">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" ng-model="student.firstName" placeholder="Enter First Name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" ng-model="student.lastName" placeholder="Enter Last Name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dob">Date Of Birth</label>
+                    <div class="input-group">
+                        <input type="text" id="dob" class="form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="student.dob" is-open="dobDatePickerPopup.opened" ng-required="true" close-text="Close" placeholder="Date Of Birth"/>
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="openDobDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="classNumber">Class Number</label>
+                    <input type="text" class="form-control" id="classNumber" ng-model="student.classNumber" placeholder="Enter Last Name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dob">Date Of Admission</label>
+                    <div class="input-group">
+                        <input type="text" id="doa" class="form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="student.doa" is-open="doaDatePickerPopup.opened" ng-required="true" close-text="Close" placeholder="Date Of Admission"/>
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="openDoaDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="feesPerMonth">Fees Per Month</label>
+                    <input type="text" class="form-control" ng-model="student.feesPerMonth" id="feesPerMonth" placeholder="Enter Fees Per Month">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="aadhaarNumber">Aadhaar Number</label>
+                    <input type="text" class="form-control" ng-model="student.aadhaarNumber" id="aadhaarNumber" placeholder="Enter Aadhaar Number">
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="feesPerMonth">Mobile Number</label>
+                    <input type="text" class="form-control" ng-model="student.mobileNumber" id="mobileNumber" placeholder="Enter Mobile Number">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" ng-model="student.email" id="email" placeholder="Enter Email">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <fieldset>
+            <legend>Guardian Details</legend>
+        </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="guardianFirstName">Guardian First Name</label>
+                <input type="text" class="form-control" ng-model="student.guardianDetails.guardianFirstName" id="guardianFirstName" placeholder="Enter Guardian First Name">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="guardianLastName">Guardian Last Name</label>
+                <input type="text" class="form-control" ng-model="student.guardianDetails.guardianLastName" id="guardianLastName" placeholder="Enter Guardian Last Name">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="guardianAadhaarNumber">Guardian Aadhar Number </label>
+                <input type="text" class="form-control" ng-model="student.guardianDetails.guardianAadhaarNumber" id="guardianAadhaarNumber" placeholder="Enter Guardian Aadhaar Number">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="guardianContactNumber">Guardian Contact Numbner</label>
+                <input type="text" class="form-control" ng-model="student.guardianDetails.guardianContactNumber" id="guardianContactNumber" placeholder="Enter Guardian Contact Number">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="relationWithStudent">Relationship With Student</label>
+                <select id="relationWithStudent" class="form-control" ng-options="relationType for relationType in relationTypes" ng-model="student.guardianDetails.relationWithStudent"></select>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend>Address Details</legend>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="houseNumber">House Number/ House Name/ Street</label>
+                <input type="text" class="form-control" ng-model="student.address.houseNumber" id="houseNumber" placeholder="Enter House Number/ House Name/ Street">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="area">Area</label>
+                <input type="text" class="form-control" ng-model="student.address.houseArea" id="area" placeholder="Enter Area">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="houseNumber">City</label>
+                <input type="text" class="form-control" ng-model="student.address.city" id="city" placeholder="Enter City">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="pincode">Pin Code</label>
+                <input type="text" class="form-control" ng-model="student.address.pincode" id="pincode" placeholder="Enter Pincode">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary" ng-click="updateStudent()">Update</button>
+            <button class="btn btn-primary" ng-click="backToManageStudent()">Back To Manage Student</button>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+</div>

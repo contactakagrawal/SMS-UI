@@ -1,0 +1,99 @@
+<div ng-controller="ManageStudentsCtrl">
+    <div class="row">
+            <div class="col-md-3">
+                <select id="operation" class="form-control" placeholder="Search By" ng-options="item as item.label for item in searchFields" ng-model="search.searchField"></select>
+            </div>
+            <div class="col-md-3">
+                <span class="input-group">
+                    <input type="text" class="form-control" ng-model="search.searchValue" placeholder="{{search.searchField.label}}"/>
+                    <a href="javascript:void(0)" class="input-group-addon" ng-click="searchStudents()">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" ng-click="resetFilters()">Reset Filters</button>
+            </div>
+            <div class="col-md-3" align="right">
+                <button class="btn btn-primary" ng-click="newStudent()">New Student</button>
+            </div>
+    </div>
+    <hr/>
+    <div class="row" ng-if="studentsData && studentsData.length > 0">
+            <div class="col-md-4">
+                <div class="btn-group" uib-dropdown is-open="false">
+                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                        Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" ng-click="applyOperation('View/Update')"><a href="javascript:void(0)">View/Update</a></li>
+                        <li role="menuitem" ng-click="applyOperation('Delete')"><a href="javascript:void(0)">Delete</a></li>
+                        <li role="menuitem" ng-click="applyOperation('Fee Details')"><a href="javascript:void(0)">Fee Details</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4" align="center">
+
+
+            </div>
+    </div>
+    <div class="col-xs-12" ng-if="!studentsData || studentsData.length === 0">
+        <uib-alert type="danger">No Student Data Available</uib-alert>
+    </div>
+    <div class="row" ng-if="studentsData && studentsData.length > 0">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Admission Number
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Date Of Birth
+                    </th>
+                    <th>
+                        Class Number
+                    </th>
+                    <th>
+                        Fees Pending
+                    </th>
+                </tr>
+                <tr ng-repeat="student in studentsData | filter:query">
+                    <th>
+                        <input type="checkbox" ng-model="student.selected">
+                    </th>
+                    <td>
+                        {{student._id}}
+                    </td>
+                    <td>
+                        {{student.firstName}}
+                    </td>
+                    <td>
+                        {{student.lastName}}
+                    </td>
+                    <td>
+                        {{student.dob | date  : 'dd-MMM-yyyy'}}
+                    </td>
+                    <td>
+                        {{student.classNumber}}
+                    </td>
+                    <td>
+                        {{student.totalFeesPending}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
