@@ -1,4 +1,4 @@
-<div ng-controller="ManageFeesCtrl">
+<div ng-controller="ManageFeesCtrl as mfc">
     <div class="row">
         <div class="col-md-12 table-responsive">
         <table class="table table-bordered table-striped">
@@ -11,12 +11,12 @@
                 <th>Total Fees Pending</th>
             </tr>
             <tr>
-                <td>{{student._id}}</td>
-                <td>{{student.firstName}}</td>
-                <td>{{student.lastName}}</td>
-                <td>{{student.classNumber}}</td>
-                <td>{{student.aadhaarNumber}}</td>
-                <td>{{student.totalFeesPending}}</td>
+                <td>{{mfc.student._id}}</td>
+                <td>{{mfc.student.firstName}}</td>
+                <td>{{mfc.student.lastName}}</td>
+                <td>{{mfc.student.classNumber}}</td>
+                <td>{{mfc.student.aadhaarNumber}}</td>
+                <td>{{mfc.student.totalFeesPending}}</td>
             </tr>
         </table>
         </div>
@@ -30,7 +30,7 @@
                     <th>Fees</th>
                     <th>Deposit</th>
                 </tr>
-                <tr ng-repeat="feeInfo in student.feesArray">
+                <tr ng-repeat="feeInfo in mfc.student.feesArray">
                     <td>{{feeInfo.month}}</td>
                     <td>{{feeInfo.year}}</td>
                     <td><input type="number" ng-model="feeInfo.feesThisMonth" /></td>
@@ -41,8 +41,8 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary" ng-click="update()">Update</button>
-            <button class="btn btn-primary" ng-click="backToManageStudent()">Back To Manage Student</button>
+            <button type="submit" class="btn btn-primary" ng-click="mfc.update()">Update</button>
+            <button class="btn btn-primary" ng-click="mfc.backToManageStudent()">Back To Manage Student</button>
         </div>
         <div class="col-md-6">
 

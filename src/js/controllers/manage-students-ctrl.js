@@ -1,18 +1,22 @@
 angular.module('RDash')
-    .controller('ManageStudentsCtrl', ['$scope', 'urlPrefix', '$http', '$state', 'localStorageService', 'ModalService', ManageStudentsCtrl]);
+    .controller('ManageStudentsCtrl', ['$scope', 'urlPrefix', '$http', '$state', 'localStorageService', 'ModalService', 'Student', ManageStudentsCtrl]);
 
 
-function ManageStudentsCtrl($scope, urlPrefix, $http, $state, localStorageService, ModalService){
+function ManageStudentsCtrl($scope, urlPrefix, $http, $state, localStorageService, ModalService, Student){
 
-    var currentFilterCriteria = {};
+    let manageStudentsCtrl = this;
+
+    let currentFilterCriteria = {};
     function loadStudents(){
-        var postBody = {
+        let postBody = {
             collectionName: 'students',
             limit:20,
             filter: currentFilterCriteria
         };
         $http.post(urlPrefix + '/app/read',postBody).then(function(studentsData){
-            $scope.studentsData = studentsData.data;
+            manageStudentsCtrl.studentsData = studentsData.data.map((student)=>{
+                return new Student(student);
+            });
         }).catch(function(err){
             toastr.error(err.data);
         });
@@ -21,28 +25,28 @@ function ManageStudentsCtrl($scope, urlPrefix, $http, $state, localStorageServic
     // init
     loadStudents();
 
-    $scope.searchFields = [{label: 'Admission Number', fieldName:'_id'}];
-    $scope.searchFields.push({label: 'First Name', fieldName:'firstName'});
-    $scope.searchFields.push({label: 'Last Name', fieldName:'lastName'});
-    $scope.searchFields.push({label: 'Class Number', fieldName:'classNumber'});
-    $scope.searchFields.push({label: 'Mobile Number', fieldName:'mobileNumber'});
+    manageStudentsCtrl.searchFields = [{label: 'Admission Number', fieldName:'_id'}];
+    manageStudentsCtrl.searchFields.push({label: 'First Name', fieldName:'firstName'});
+    manageStudentsCtrl.searchFields.push({label: 'Last Name', fieldName:'lastName'});
+    manageStudentsCtrl.searchFields.push({label: 'Class Number', fieldName:'classNumber'});
+    manageStudentsCtrl.searchFields.push({label: 'Mobile Number', fieldName:'mobileNumber'});
 
-    $scope.searchStudents = function(){
-        var fieldName = $scope.search.searchField.fieldName;
-        var fieldValue = $scope.search.searchValue;
+    manageStudentsCtrl.searchStudents = function(){
+        let fieldName = manageStudentsCtrl.search.searchField.fieldName;
+        let fieldValue = manageStudentsCtrl.search.searchValue;
         currentFilterCriteria = {};
         currentFilterCriteria[fieldName] = fieldValue;
         loadStudents();
     };
 
-    $scope.resetFilters = function(){
-        $scope.search = {};
+    manageStudentsCtrl.resetFilters = function(){
+        manageStudentsCtrl.search = {};
         currentFilterCriteria = {};
         loadStudents();
     };
 
-    $scope.newStudent = function(){
-        $state.go('new-student');
+    manageStudentsCtrl.newStudent = function(){
+        $state.go('dashboard.new-student');
         //toastr.info('Are you the 6 fingered man?');
     };
 
@@ -56,7 +60,7 @@ function ManageStudentsCtrl($scope, urlPrefix, $http, $state, localStorageServic
             return;
         }
         localStorageService.set('student-to-be-updated', studentToBeOperated[0]);
-        $state.go('update-student');
+        $state.go('dashboard.update-student');
     }
 
     function doDelete(studentToBeOperated){
@@ -66,11 +70,11 @@ function ManageStudentsCtrl($scope, urlPrefix, $http, $state, localStorageServic
         }
 
         ModalService.confirm('Are you sure you want to delete students?').then(function(){
-            var ids = studentToBeOperated.map(function(item){
+            let ids = studentToBeOperated.map(function(item){
                 return item._id;
             });
 
-            var postBody = {
+            let postBody = {
                 collectionName: 'students',
                 removeCriteria: {_id: {'$in':ids}}
             };
@@ -95,18 +99,18 @@ function ManageStudentsCtrl($scope, urlPrefix, $http, $state, localStorageServic
             return;
         }
         localStorageService.set('selected-student', studentToBeOperated[0]);
-        $state.go('manage-fees');
+        $state.go('dashboard.manage-fees');
     }
 
-    $scope.applyOperation = function(selectedOperationType){
-        var studentToBeOperated = $scope.studentsData.filter(function(student){
+    manageStudentsCtrl.applyOperation = function(selectedOperationType){
+        let studentToBeOperated = manageStudentsCtrl.studentsData.filter(function(student){
             return student.selected;
         });
         switch(selectedOperationType){
             case 'View/Update': doUpdateStudent(studentToBeOperated);
                                 break;
             case 'Delete':doDelete(studentToBeOperated);break;
-            case 'Fee Details':doManageFees(studentToBeOperated);;break;
+            case 'Fee Details':doManageFees(studentToBeOperated);break;
         }
     }
 }

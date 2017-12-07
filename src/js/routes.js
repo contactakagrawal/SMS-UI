@@ -7,7 +7,7 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
         // For unmatched routes
-        $urlRouterProvider.otherwise('/manage-students');
+        $urlRouterProvider.otherwise('/login');
 
         // Application routes
         $stateProvider
@@ -19,25 +19,43 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 url: '/tables',
                 templateUrl: 'templates/tables.html'
             })
-            .state('manage-students', {
+            .state('dashboard.manage-students', {
                 url: '/manage-students',
+                parent: 'dashboard',
                 templateUrl: 'templates/manage-students.html'
             })
-            .state('new-student', {
+            .state('dashboard.new-student', {
                     url: '/new-student',
+                    parent: 'dashboard',
                     templateUrl: 'templates/new-student.html'
             })
-            .state('update-student', {
+            .state('dashboard.update-student', {
                 url: '/update-student',
+                parent:'dashboard',
                 templateUrl: 'templates/update-student.html'
             })
-            .state('manage-fees', {
+            .state('dashboard.manage-fees', {
                 url: '/manage-fees',
+                parent:'dashboard',
                 templateUrl: 'templates/manage-fees.html'
             })
-            .state('stats', {
+            .state('dashboard.manage-others', {
+                url: '/manage-others',
+                parent:'dashboard',
+                templateUrl: 'templates/manage-others.html'
+            })
+            .state('dashboard.stats', {
                 url: '/stats',
+                parent:'dashboard',
                 templateUrl: 'templates/stats.html'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'templates/login.view.html'
+            })
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: 'templates/dashboard.html'
             });
     }
 ]);

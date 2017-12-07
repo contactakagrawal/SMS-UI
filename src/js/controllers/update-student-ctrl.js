@@ -3,7 +3,10 @@ angular.module('RDash')
 
 
 function UpdateStudentCtrl($scope, urlPrefix, $http, $state, localStorageService, Student){
-
+    $scope.genderList = ['Male', 'Female'];
+    $scope.religionList = ['Hindu', 'Muslim', 'Christian', 'Punjabi'];
+    $scope.categoryList = ['General', 'OBC', 'SC/ST'];
+    
     $scope.student = localStorageService.get('student-to-be-updated');
 
     // convert string to date
@@ -13,7 +16,7 @@ function UpdateStudentCtrl($scope, urlPrefix, $http, $state, localStorageService
     $scope.relationTypes = ['Father', 'Mother', 'Brother', 'Sister', 'Uncle'];
 
     $scope.backToManageStudent = function(){
-        $state.go('manage-students');
+        $state.go('dashboard.manage-students');
     };
 
     $scope.dobDatePickerPopup = {
@@ -31,6 +34,27 @@ function UpdateStudentCtrl($scope, urlPrefix, $http, $state, localStorageService
     $scope.openDoaDatePicker = function() {
         $scope.doaDatePickerPopup.opened = true;
     };
+
+    loadAllClasses();
+
+    // update the fees section in db
+    function loadAllClasses(){
+        let readAllClasses = {
+            collectionName: 'classes',
+            filter:{},
+            sort:{
+                serialNumber:1
+            }
+        };
+        $http.post(urlPrefix + '/app/read', readAllClasses).then(function(response){
+            $scope.classList = response.data || [];
+            $scope.student.classObj = $scope.classList.find((item)=>{
+                return item.className === $scope.student.className;
+            })
+        }).catch(function(err){
+            toastr.error('Error while fetching classes...');
+        });
+    }
 
     $scope.updateStudent = function(){
 

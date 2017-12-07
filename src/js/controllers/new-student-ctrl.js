@@ -1,14 +1,51 @@
 angular.module('RDash')
-    .controller('NewStudentsCtrl', ['$scope', 'urlPrefix', '$http', '$state', 'localStorageService','Student', NewStudentsCtrl]);
+    .controller('NewStudentsCtrl', ['$scope', 'urlPrefix', '$http', '$state', 'localStorageService','Student', 'Upload', NewStudentsCtrl]);
 
 
-function NewStudentsCtrl($scope, urlPrefix, $http, $state, localStorageService, Student){
+function NewStudentsCtrl($scope, urlPrefix, $http, $state, localStorageService, Student, Upload){
 
     $scope.student = {};
     $scope.relationTypes = ['Father', 'Mother', 'Brother', 'Sister', 'Uncle'];
+    $scope.genderList = ['Male', 'Female'];
+    $scope.religionList = ['Hindu', 'Muslim', 'Christian', 'Punjabi'];
+    $scope.categoryList = ['General', 'OBC', 'SC/ST'];
+
+    loadAllClasses();
+
+    // update the fees section in db
+    function loadAllClasses(){
+        let readAllClasses = {
+            collectionName: 'classes',
+            filter:{},
+            sort:{
+                serialNumber:1
+            }
+        };
+        $http.post(urlPrefix + '/app/read', readAllClasses).then(function(response){
+            $scope.classList = response.data || [];
+        }).catch(function(err){
+            toastr.error('Error while fetching classes...');
+        });
+    }
+
+
+    $scope.upload = function (file) {
+        Upload.upload({
+            url: urlPrefix + '/app/student/upload',
+            data: {file: file, 'username': 'amit'}
+        }).then(function (resp) {
+            $scope.student.thumbNail = resp.config.data.file.name;
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+    };
 
     $scope.backToManageStudent = function(){
-        $state.go('manage-students');
+        $state.go('dashboard.manage-students');
     };
 
     $scope.dobDatePickerPopup = {
@@ -33,7 +70,7 @@ function NewStudentsCtrl($scope, urlPrefix, $http, $state, localStorageService, 
         }
 
         // create new Student
-        var student  = new Student($scope.student);
+        let student  = new Student($scope.student);
         student.initFeesThisMonthInFeesArray();
         student.evalTotalFeesExpectedAndPending();
 

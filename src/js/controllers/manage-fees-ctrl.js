@@ -4,19 +4,22 @@ angular.module('RDash')
 
 function ManageFeesCtrl($scope, $cookieStore, $http, $state, localStorageService, urlPrefix, Student){
 
-    $scope.student = localStorageService.get('selected-student');
+    let manageFeesCtrl = this;
 
-    $scope.update = function(){
+    manageFeesCtrl.student = localStorageService.get('selected-student');
+    //$scope.student = new Student($scope.student);
 
-        var student = new Student($scope.student);
-        student.evalTotalFeesExpectedAndPending();
+    manageFeesCtrl.update = function(){
 
-        var postBody = {
-            _id: student._id,
+        manageFeesCtrl.student = new Student(manageFeesCtrl.student);
+        manageFeesCtrl.student.evalTotalFeesExpectedAndPending();
+
+        let postBody = {
+            _id: manageFeesCtrl.student._id,
             updatedContent: {
-                feesArray: student.feesArray,
-                totalFeesPending: student.totalFeesPending,
-                totalFeesExpected: student.totalFeesExpected
+                feesArray: manageFeesCtrl.student.feesArray,
+                totalFeesPending: manageFeesCtrl.student.totalFeesPending,
+                totalFeesExpected: manageFeesCtrl.student.totalFeesExpected
             }
 
         };
@@ -30,8 +33,8 @@ function ManageFeesCtrl($scope, $cookieStore, $http, $state, localStorageService
 
     };
 
-    $scope.backToManageStudent = function(){
-        $state.go('manage-students');
+    manageFeesCtrl.backToManageStudent = function(){
+        $state.go('dashboard.manage-students');
     };
 
 

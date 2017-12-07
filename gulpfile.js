@@ -23,10 +23,11 @@ var paths = {
  * Handle bower components from index
  */
 gulp.task('usemin', function() {
+    // removed minifyCss({keepSpecialComments: 0})from css array for dev
     return gulp.src(paths.index)
         .pipe(usemin({
             js: [minifyJs(), 'concat'],
-            css: [minifyCss({keepSpecialComments: 0}), 'concat'],
+            css: ['concat'],
         }))
         .pipe(gulp.dest('dist/'));
 });

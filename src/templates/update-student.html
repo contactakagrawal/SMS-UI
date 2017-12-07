@@ -2,6 +2,15 @@
     <div>
         <div class="row">
             <div class="col-md-6">
+                <img ng-if="!student.thumbNail" ngf-thumbnail="file || 'http://localhost:3000/sample.jpg'">
+                <img ng-if="student.thumbNail" ngf-thumbnail="file || 'http://localhost:3000/'+ student.thumbNail">
+            </div>
+            <div class="col-md-6">
+                <div class="btn btn-default" ngf-select="upload($file)">Upload Picture</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="rollNumber">Admission Number</label>
                     <input type="text" ng-disabled="true" class="form-control" id="rollNumber" ng-model="student._id" placeholder="Enter Admission Number">
@@ -36,8 +45,22 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="classNumber">Class Number</label>
-                    <input type="text" class="form-control" id="classNumber" ng-model="student.classNumber" placeholder="Enter Last Name">
+                    <label for="Gender">Gender</label>
+                    <select id="gender" class="form-control" ng-options="gender for gender in genderList" ng-model="student.gender"></select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="firstName">Religion</label>
+                    <select id="religion" class="form-control" ng-options="religion for religion in religionList" ng-model="student.religion"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="classNumber">Class Name</label>
+                    <select id="classNumber" class="form-control" ng-options="item as item.className for item in classList" ng-model="student.classObj"></select>
                 </div>
             </div>
             <div class="col-md-6">
@@ -80,6 +103,20 @@
                     <label for="email">E-mail</label>
                     <input type="text" class="form-control" ng-model="student.email" id="email" placeholder="Enter Email">
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" class="form-control" ng-options="category for category in categoryList" ng-model="student.category"></select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!--<div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" ng-model="student.email" id="email" placeholder="Enter Email">
+                </div>-->
             </div>
         </div>
     </div>
